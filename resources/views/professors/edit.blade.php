@@ -1,0 +1,35 @@
+@extends('layout')
+
+@section('content')
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="card uper">
+  <div class="card-header">
+    Edit Professor
+  </div>
+  <div class="card-body">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div><br />
+    @endif
+      <form method="post" action="{{ route('professors.update', $professor->id) }}">
+        @method('PATCH')
+        @csrf
+        <div class="form-group">
+          <label for="name">Professor Name:</label>
+          <input type="text" class="form-control" name="professor_name" value={{ $professor->professor_name }} />
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+  </div>
+</div>
+@endsection
